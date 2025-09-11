@@ -1,6 +1,2 @@
-timestamp,name,email,phone,interest
-2025-09-10T12:31:40.885Z,Anish Pambhar,anishpambhar@gmail.com,+919737545084,waitlist,,
-2025-09-10T12:23:18.552Z,Anish Pambhar,anishpambhar@gmail.com,+919737545085,notify
-2025-09-10T12:23:56.111Z,Anish pambhar,routo@gmail.com,+919737545084,vendor
-2025-09-10T12:32:57.151Z,aaaa,anishhhhhhhhpambhar@gmail.com,+919824573153,waitlist,,
-
+timestamp,name,email,phone,interest,shopName,shopType
+2025-09-11T13:53:16.066Z,Anish Pambhar,anishpambhar@gmail.com,+910973754508,waitlist,,

@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { writeFile, mkdir, appendFile, readFile } from "fs/promises"
-import { existsSync } from "fs"
-import path from "path"
+export const runtime = "nodejs"
 
 type ContactPayload = {
   name: string
@@ -14,16 +12,6 @@ type ContactPayload = {
 
 const CSV_HEADERS = ["timestamp","name","email","phone","userType","subject","message"]
 
-function toCsvLine(values: string[]) {
-  return values.map((v) => {
-    const s = v ?? ""
-    if (s.includes(",") || s.includes("\n") || s.includes('"')) {
-      return '"' + s.replace(/"/g, '""') + '"'
-    }
-    return s
-  }).join(",") + "\n"
-}
-
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as ContactPayload
@@ -32,25 +20,25 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    const outDir = path.join(process.cwd(), "public")
-    const outFile = path.join(outDir, "contact_messages.csv")
-    if (!existsSync(outDir)) {
-      await mkdir(outDir, { recursive: true })
-    }
-    if (!existsSync(outFile)) {
-      await writeFile(outFile, toCsvLine(CSV_HEADERS), { encoding: "utf8" })
-    }
     const timestamp = new Date().toISOString()
-    const row = toCsvLine([timestamp, name, email, phone, userType, subject, message])
-    await appendFile(outFile, row, { encoding: "utf8" })
+
+    // Send to Apps Script webhook; error if fails
+    const appsScriptUrl = process.env.SHEETS_WEBHOOK_URL || process.env.APPS_SCRIPT_URL
+    if (!appsScriptUrl) {
+      return NextResponse.json({ ok: false, error: "SHEETS_WEBHOOK_URL not set" }, { status: 502 })
+    }
+    const resp = await fetch(appsScriptUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type: "contact", timestamp, name, email, phone, userType, subject, message })
+    })
+    if (!resp.ok) {
+      return NextResponse.json({ ok: false, error: "Apps Script returned non-200" }, { status: 502 })
+    }
 
     // Optional email via webhook or SMTP relay (environment provided)
     const webhook = process.env.CONTACT_WEBHOOK_URL
-    if (webhook) {
-      try {
-        await fetch(webhook, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ to: "anishpambhar@gmail.com", name, email, phone, userType, subject, message }) })
-      } catch {}
-    }
+    if (webhook) { try { await fetch(webhook, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ to: "anishpambhar@gmail.com", name, email, phone, userType, subject, message }) }) } catch {} }
 
     return NextResponse.json({ ok: true })
   } catch (e) {

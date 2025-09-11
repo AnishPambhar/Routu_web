@@ -1,10 +1,12 @@
 "use client"
+import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { TrendingUp, Store, Heart, Shield, Clock, Users, ArrowRight, CheckCircle } from "lucide-react"
 import Link from "next/link"
 
 export default function Benefits() {
+  const [loadingIndex, setLoadingIndex] = useState<number | null>(null)
   const benefits = [
     {
       category: "For Riders",
@@ -81,6 +83,34 @@ export default function Benefits() {
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Launching overlay */}
+        {loadingIndex !== null && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+            <div className="relative z-10 w-[90%] max-w-md rounded-2xl shadow-2xl border border-white/20 overflow-hidden">
+              <div className="bg-gradient-to-r from-blue-600 to-green-600 p-6 text-white text-center">
+                <div className="text-4xl mb-2">🚀</div>
+                <h4 className="font-heading font-bold text-2xl">Launching Soon</h4>
+                <p className="opacity-90 mt-1">Please wait a moment…</p>
+              </div>
+              <div className="bg-white p-6">
+                <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-blue-600 to-green-600 animate-[progress_900ms_ease-in-out_forwards]" />
+                </div>
+                <style jsx>{`
+                  @keyframes progress {
+                    from { width: 0%; }
+                    to { width: 100%; }
+                  }
+                `}</style>
+                <div className="mt-4 flex items-center justify-center gap-2 text-sm text-gray-600">
+                  <span className="inline-block h-4 w-4 rounded-full border-2 border-gray-300 border-t-blue-600 animate-spin" />
+                  Getting things ready…
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
         <div className="text-center mb-20">
           <h2 className="font-heading font-bold text-4xl lg:text-5xl text-gray-900 mb-6 text-balance">
             Benefits for{" "}
@@ -131,10 +161,31 @@ export default function Benefits() {
 
                   {/* CTA Button */}
                   <Button
-                    className={`w-full bg-gradient-to-r ${benefit.gradient} hover:shadow-lg text-white font-semibold py-6 rounded-xl transition-all duration-300 group-hover:scale-105`}
+                    disabled={loadingIndex === index}
+                    onClick={() => {
+                      setLoadingIndex(index)
+                      // brief launch animation, then route to appropriate flow
+                      setTimeout(() => {
+                        setLoadingIndex(null)
+                        const category = benefit.category
+                        // Map to modal contexts
+                        const context = category === "For Riders" ? "traveler" : category === "For Vendors" ? "vendor" : "notify"
+                        window.dispatchEvent(new CustomEvent("routo:open-modal", { detail: { context } }))
+                      }, 900)
+                    }}
+                    className={`w-full bg-gradient-to-r ${benefit.gradient} hover:shadow-lg text-white font-semibold py-6 rounded-xl transition-all duration-300 group-hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed`}
                   >
-                    {benefit.cta}
-                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+                    {loadingIndex === index ? (
+                      <span className="inline-flex items-center gap-2">
+                        <span className="inline-block h-4 w-4 rounded-full border-2 border-white/50 border-t-white animate-spin" />
+                        Launching…
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center">
+                        {benefit.cta}
+                        <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+                      </span>
+                    )}
                   </Button>
                 </div>
               </CardContent>

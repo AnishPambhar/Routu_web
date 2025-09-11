@@ -13,6 +13,10 @@ export default function Navbar() {
   const pathname = usePathname()
   const router = useRouter()
 
+  if (pathname?.startsWith("/admin")) {
+    return null
+  }
+
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault()
     const element = document.getElementById(targetId)

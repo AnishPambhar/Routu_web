@@ -1,3 +1,4 @@
+"use client"
 import { Card, CardContent } from "@/components/ui/card"
 import { MapPin, Clock, Mail, Phone, MessageCircle } from "lucide-react"
 
@@ -31,8 +32,8 @@ export default function ContactInfo() {
       details: ["Surat headquarters", "By appointment"],
       bgColor: "bg-gradient-to-br from-[#6a0dad] to-pink-500",
       action: {
-        label: "Email for appointment",
-        href: "mailto:anishpambhar@gmail.com?subject=Appointment%20Request%20with%20Routo&body=Hi%20Routo%20Team%2C%0A%0AI%20would%20like%20to%20schedule%20an%20appointment.%20My%20preferred%20date%2Ftime%20is%3A%20__%0AMy%20contact%20number%20is%3A%20__%0A%0AThanks!",
+        label: "Request appointment",
+        href: "#open-appointment",
       },
     },
   ]
@@ -72,15 +73,30 @@ export default function ContactInfo() {
                         </p>
                       ))}
                       {"action" in detail && detail.action ? (
-                        <div className="pt-2">
-                          <a
-                            href={(detail as any).action.href}
-                            target={((detail as any).action.href || "").startsWith("http") ? "_blank" : undefined}
-                            rel={((detail as any).action.href || "").startsWith("http") ? "noopener noreferrer" : undefined}
+                        <div className="pt-2 flex flex-wrap gap-2">
+                          <button
+                            onClick={() => {
+                              if ((detail as any).title === "Visit Us") {
+                                window.dispatchEvent(new CustomEvent("open-appointment"))
+                              } else if ((detail as any).action?.href) {
+                                const href = (detail as any).action.href as string
+                                if (href.startsWith("http") || href.startsWith("mailto:")) {
+                                  window.open(href, href.startsWith("http") ? "_blank" : "_self")
+                                }
+                              }
+                            }}
                             className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-[#6a0dad] text-white hover:opacity-90 transition-colors text-sm"
                           >
                             {(detail as any).action.label}
-                          </a>
+                          </button>
+                          {((detail as any).title === "Visit Us") && (
+                            <a
+                              href="mailto:anishpambhar@gmail.com?subject=Appointment%20Request%20with%20Routo&body=Hi%20Routo%20Team%2C%0A%0AI%20would%20like%20to%20schedule%20an%20appointment.%20My%20preferred%20date%2Ftime%20is%3A%20__%0AMy%20contact%20number%20is%3A%20__%0A%0AThanks!"
+                              className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-white text-[#6a0dad] border border-[#6a0dad] hover:bg-[#6a0dad]/5 transition-colors text-sm"
+                            >
+                              Email for appointment
+                            </a>
+                          )}
                         </div>
                       ) : null}
                     </div>

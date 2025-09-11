@@ -13,6 +13,8 @@ import { Send, CheckCircle, User, Mail, Phone, MessageSquare } from "lucide-reac
 
 export default function ContactForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [errorMsg, setErrorMsg] = useState<string | null>(null)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,17 +26,27 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    })
-    if (res.ok) {
+    setErrorMsg(null)
+    setIsSubmitting(true)
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+      if (!res.ok) {
+        const text = await res.text()
+        throw new Error(text || "Failed to send message")
+      }
       setIsSubmitted(true)
       setTimeout(() => {
         setIsSubmitted(false)
         setFormData({ name: "", email: "", phone: "", subject: "", message: "", userType: "" })
-      }, 3000)
+      }, 2400)
+    } catch (err: any) {
+      setErrorMsg(err?.message || "Something went wrong. Please try again.")
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -193,11 +205,16 @@ export default function ContactForm() {
               <Button
                 type="submit"
                 size="lg"
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white h-14 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:opacity-70 disabled:cursor-not-allowed text-white h-14 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
               >
-                Send Message to Routo
-                <Send className="ml-2 h-5 w-5" />
+                {isSubmitting ? "Sending..." : "Send Message to Routo"}
+                {!isSubmitting && <Send className="ml-2 h-5 w-5" />}
               </Button>
+
+              {errorMsg && (
+                <p className="text-sm text-red-600 text-center">{errorMsg}</p>
+              )}
 
               <p className="text-center text-sm text-gray-500 mt-4">
                 By submitting this form, you agree to our privacy policy and terms of service.

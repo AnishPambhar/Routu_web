@@ -12,6 +12,7 @@ export default function HomePage() {
     <div className="min-h-screen">
       <main>
         <HeroSection />
+        <AppOverview />
         <IdeaShowcase />
         <WhyJoinRouto />
         <HowItWorks />

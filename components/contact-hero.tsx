@@ -39,6 +39,12 @@ export default function ContactHero() {
       setLoading(false)
     }
   }
+  // Listen for global event from ContactInfo to open dialog
+  // useEffect is safe in client components
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  if (typeof window !== "undefined") {
+    window.addEventListener("open-appointment", () => setOpen(true))
+  }
   return (
     <section className="relative bg-gradient-to-br from-blue-50 via-purple-50 to-green-50 py-20 lg:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>

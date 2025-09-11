@@ -9,7 +9,7 @@ const screens = [
     title: "Shopping",
     description: "Order from trusted local vendors across categories.",
     icon: ShoppingBag,
-    image: "/image1.png",
+    image: "/shopping.png",
     cta: { label: "Browse local shops", context: "notify" as const },
   },
   {
@@ -17,7 +17,7 @@ const screens = [
     title: "Send Parcel",
     description: "Book eco‑friendly pick & drop at fair prices.",
     icon: Package,
-    image: "/image2.png",
+    image: "/send_parcel.png",
     cta: { label: "Send a parcel", context: "notify" as const },
   },
   {
@@ -25,7 +25,7 @@ const screens = [
     title: "Traveler",
     description: "Earn by pick & drop along your regular route.",
     icon: Car,
-    image: "/image3.png",
+    image: "/traveler.png",
     cta: { label: "Become a traveler", context: "traveler" as const },
   },
 ]
@@ -48,104 +48,55 @@ export default function AppOverview() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Phone mock matching provided UI */}
+          {/* Left: 3D phone mock with swappable screen images */}
           <div className="flex justify-center">
-            <div className="relative w-[330px] h-[660px] rounded-[2.0rem] shadow-2xl overflow-hidden" style={{ background: "linear-gradient(160deg,#6a0dad, #4e31a5)" }}>
-              {/* status pill */}
-              <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white text-xs opacity-80">Routo</div>
-              {/* header name/wallet */}
-              <div className="px-5 pt-10 pb-4 text-white">
-                <div className="flex items-center justify-between">
-                  <div className="font-semibold">{activeScreen.key === "parcel" ? "Anish Pambhar" : activeScreen.key === "traveler" ? "Wallet ₹250" : "Delivery in 6 mins"}</div>
-                  <div className="opacity-80 text-sm">{activeScreen.key === "traveler" ? "History" : ""}</div>
-                </div>
-              </div>
-              {/* body card */}
-              <div className="absolute inset-x-0 bottom-0 p-4 pb-6">
-                <div className="bg-white rounded-2xl p-4 shadow-xl">
-                  {activeScreen.key === "parcel" && (
-                    <div>
-                      <h4 className="text-[#2b2b2b] font-semibold text-lg mb-3">Let's Get Your Parcel Moving!</h4>
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-2 bg-gray-100 rounded-xl px-3 py-3 text-sm text-gray-700">
-                          <span className="text-red-500">📍</span>
-                          <span>32 Samwell Sq, Chevron</span>
-                        </div>
-                        <div className="flex items-center gap-2 bg-gray-100 rounded-xl px-3 py-3 text-sm text-gray-700">
-                          <span className="text-green-500">📍</span>
-                          <span>21b, Karimu Kotun Street, Victoria…</span>
-                        </div>
-                        <button className="w-full mt-2 bg-gradient-to-r from-[#6a0dad] to-[#5b19c4] text-white rounded-xl py-3 font-semibold">Next</button>
-                      </div>
-                    </div>
-                  )}
-                  {activeScreen.key === "traveler" && (
-                    <div>
-                      <h4 className="text-[#2b2b2b] font-semibold text-lg mb-3">Find a task in route</h4>
-                      <div className="space-y-3">
-                        <div className="bg-gray-100 rounded-xl px-3 py-3 text-sm text-gray-700">Where are you going from?</div>
-                        <div className="bg-gray-100 rounded-xl px-3 py-3 text-sm text-gray-700">Where do you want to go?</div>
-                        <button className="w-full mt-2 bg-gradient-to-r from-[#6a0dad] to-[#5b19c4] text-white rounded-xl py-3 font-semibold">Go</button>
-                      </div>
-                    </div>
-                  )}
-                  {activeScreen.key === "shopping" && (
-                    <div>
-                      <h4 className="text-[#2b2b2b] font-semibold text-lg mb-3">Search for shops or items</h4>
-                      <div className="bg-gray-100 rounded-xl px-3 py-3 text-sm text-gray-700">e.g., Grocery, Bakery, Masala…</div>
-                      <div className="mt-3 grid grid-cols-3 gap-2 text-center text-xs text-gray-700">
-                        <div className="bg-gray-100 rounded-xl px-2 py-2">Stationery</div>
-                        <div className="bg-gray-100 rounded-xl px-2 py-2">Bakery</div>
-                        <div className="bg-gray-100 rounded-xl px-2 py-2">Grocery</div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-                {/* bottom nav */}
-                <div className="mt-3 grid grid-cols-3 gap-2 text-center text-xs">
-                  <div className={`rounded-xl py-2 ${activeScreen.key === "shopping" ? "text-[#6a0dad] bg-white" : "text-white/80"}`}>Shop</div>
-                  <div className={`rounded-xl py-2 ${activeScreen.key === "parcel" ? "text-[#6a0dad] bg-white" : "text-white/80"}`}>Send</div>
-                  <div className={`rounded-xl py-2 ${activeScreen.key === "traveler" ? "text-[#6a0dad] bg-white" : "text-white/80"}`}>Traveler</div>
-                </div>
+            <div className="relative w-[330px] h-[660px] rounded-[2.0rem] shadow-2xl overflow-hidden transition-transform duration-500 [transform-style:preserve-3d] hover:-rotate-x-2 hover:rotate-y-2"
+                 style={{ background: "linear-gradient(160deg,#6a0dad, #4e31a5)" }}>
+              {/* Camera notch / pill */}
+              <div className="absolute top-5 left-1/2 -translate-x-1/2 w-24 h-6 bg-black/30 rounded-full" />
+              {/* Screen container */}
+              <div className="absolute inset-3 rounded-[1.6rem] bg-black/5 overflow-hidden">
+                <img
+                  src={activeScreen.image}
+                  alt={activeScreen.title}
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>
 
-          {/* Right: Tabs and CTAs */}
-          <div>
-            <div className="flex gap-3 mb-8">
+          {/* Right: Centered, professional CTA buttons */}
+          <div className="flex flex-col items-center text-center">
+            <h3 className="font-heading text-2xl lg:text-3xl text-gray-900 mb-3">Explore Routo</h3>
+            <p className="text-gray-600 max-w-xl mb-8">
+              Shop local, send parcels, or earn as a traveler. Pick a mode to preview.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-2xl">
               {screens.map((s, i) => (
                 <button
                   key={s.key}
                   onClick={() => setActive(i)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all ${
-                    active === i ? "bg-[#6a0dad] text-white border-[#6a0dad]" : "bg-white border-gray-200 text-gray-700 hover:border-[#6a0dad]"
+                  className={`group rounded-2xl border p-5 transition-all shadow-sm hover:shadow-lg ${
+                    active === i ? "border-[#6a0dad] bg-[#6a0dad]/5" : "border-gray-200 bg-white hover:border-[#6a0dad]"
                   }`}
                 >
-                  <s.icon className="h-4 w-4" />
-                  <span className="font-medium">{s.title}</span>
+                  <div className="flex flex-col items-center gap-3">
+                    <s.icon className={`h-6 w-6 ${active === i ? "text-[#6a0dad]" : "text-gray-700"}`} />
+                    <div className="font-semibold text-gray-900">{s.key === 'parcel' ? 'Send Parcel' : s.title}</div>
+                    <div className="text-xs text-gray-500 text-balance">
+                      {s.key === 'shopping' && 'Discover nearby shops'}
+                      {s.key === 'parcel' && 'Book eco‑friendly delivery'}
+                      {s.key === 'traveler' && 'Earn on your route'}
+                    </div>
+                  </div>
                 </button>
               ))}
             </div>
-            <div className="space-y-5">
-              <h3 className="font-heading text-2xl text-gray-900">{activeScreen.title}</h3>
-              <p className="text-gray-600 leading-relaxed">
-                {activeScreen.key === "shopping" && "Discover nearby shops, fresh produce, essentials and more with same‑day delivery."}
-                {activeScreen.key === "parcel" && "Schedule doorstep pickup and eco‑friendly delivery with transparent pricing."}
-                {activeScreen.key === "traveler" && "Going somewhere? Pick and drop small parcels on your route, earn extra, offset fuel, and reduce carbon."}
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <Button onClick={() => openModal(activeScreen.cta.context)} className="bg-[#6a0dad] hover:opacity-90">
-                  {activeScreen.cta.label}
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-                {activeScreen.key === "shopping" && (
-                  <Button variant="outline" onClick={() => openModal("waitlist")}>Join waitlist</Button>
-                )}
-                {activeScreen.key === "traveler" && (
-                  <Button variant="outline" onClick={() => openModal("vendor")}>Become a vendor</Button>
-                )}
-              </div>
+            <div className="mt-8">
+              <Button onClick={() => openModal(activeScreen.cta.context)} className="bg-[#6a0dad] hover:opacity-90">
+                {activeScreen.cta.label}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
             </div>
           </div>
         </div>
