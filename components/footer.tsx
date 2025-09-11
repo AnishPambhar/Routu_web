@@ -21,7 +21,13 @@ export default function Footer() {
             <div className="flex space-x-4">
               <Facebook className="h-5 w-5 text-gray-400 hover:text-blue-500 cursor-pointer transition-colors" />
               <Twitter className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
-              <Instagram className="h-5 w-5 text-gray-400 hover:text-pink-500 cursor-pointer transition-colors" />
+              <a
+    href="https://www.instagram.com/routohere?igsh=d2tsY3N3Z3B3dHcz&utm_source=qr"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <Instagram className="h-5 w-5 text-gray-400 hover:text-pink-500 cursor-pointer transition-colors" />
+  </a>
               <Linkedin className="h-5 w-5 text-gray-400 hover:text-blue-600 cursor-pointer transition-colors" />
             </div>
           </div>
