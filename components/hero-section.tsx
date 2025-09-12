@@ -243,14 +243,14 @@ export default function HeroSection() {
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
                 <Users className="h-8 w-8 text-white" />
               </div>
-              <div className="font-heading font-bold text-3xl text-gray-900 mb-1">500+</div>
+              <div className="font-heading font-bold text-3xl text-gray-900 mb-1">100+</div>
               <div className="text-sm text-gray-600">Vendors Ready</div>
             </div>
             <div className="text-center group">
               <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
                 <Package className="h-8 w-8 text-white" />
               </div>
-              <div className="font-heading font-bold text-3xl text-gray-900 mb-1">50+</div>
+              <div className="font-heading font-bold text-3xl text-gray-900 mb-1">6+</div>
               <div className="text-sm text-gray-600">Categories</div>
             </div>
             <div className="text-center group">
