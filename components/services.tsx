@@ -134,24 +134,24 @@ export default function Services() {
           ))}
         </div>
 
-        <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-3xl p-12 mb-16">
+        <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-3xl p-6 sm:p-10 lg:p-12 mb-16">
           <div className="text-center mb-12">
             <h3 className="font-heading font-bold text-3xl text-gray-900 mb-4">Vendors from Multiple Categories</h3>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Routo connects you with all kinds of trusted local businesses — making shopping easier, faster, and closer to home.
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             {vendorCategories.map((category, index) => (
               <div
                 key={index}
-                className="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group"
+                className="bg-white rounded-2xl p-4 sm:p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group"
               >
-                <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                <div className="text-2xl sm:text-3xl mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300">
                   {category.icon}
                 </div>
-                <h4 className="font-heading font-bold text-lg text-gray-900 mb-2">{category.name}</h4>
-                <p className="text-sm text-gray-600">{category.description}</p>
+                <h4 className="font-heading font-bold text-sm sm:text-lg leading-snug text-pretty break-words text-gray-900 mb-1 sm:mb-2">{category.name}</h4>
+                <p className="text-xs sm:text-sm text-gray-600">{category.description}</p>
               </div>
             ))}
           </div>
