@@ -1,5 +1,5 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Montserrat } from "next/font/google"
 import { Open_Sans } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
@@ -20,10 +20,53 @@ const openSans = Open_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "Routo - Turn Your Daily Commute Into Extra Income",
+  metadataBase: new URL("https://routohere.com"),
+  title: "Routo – Online Marketplace & Delivery Platform | Routohere",
   description:
-    "Peer-to-peer travel & delivery platform. Local riders earn money by carrying parcels while vendors sell more and customers pay less.",
-  generator: "v0.app",
+    "Routo is a peer-to-peer delivery and online marketplace app where vendors sell products and users send parcels or complete pick-and-drop jobs.",
+  keywords: [
+    "Routo",
+    "routohere",
+    "delivery app",
+    "online marketplace",
+    "peer-to-peer delivery",
+    "send parcel",
+    "vendor store",
+    "e-commerce",
+  ],
+  openGraph: {
+    title: "Routo – Online Marketplace & Delivery Platform | Routohere",
+    description:
+      "Routo is a peer-to-peer delivery and online marketplace app where vendors sell products and users send parcels or complete pick-and-drop jobs.",
+    url: "https://routohere.com",
+    siteName: "Routo",
+    type: "website",
+    images: [
+      {
+        url: "https://routohere.com/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Routo logo",
+      },
+    ],
+  },
+  icons: {
+    icon: [
+      { url: "/fevicon.png", type: "image/png" },
+    ],
+    shortcut: [
+      { url: "/fevicon.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/fevicon.png", type: "image/png" },
+    ],
+  },
+}
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 }
 
 export default function RootLayout({

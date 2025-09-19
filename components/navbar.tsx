@@ -3,6 +3,7 @@
 import type React from "react"
 
 import Link from "next/link"
+import Image from "next/image"
 import { useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
@@ -31,31 +32,39 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <img src="/routo_logo.png" alt="Routo Logo" className="h-10 w-auto" />
+          <Link href="/" className="flex items-center space-x-2 shrink-0" aria-label="Routo home">
+            <Image
+              src="/routo_logo.png"
+              alt="Routo logo"
+              width={160}
+              height={36}
+              priority
+              sizes="(max-width: 768px) 120px, 160px"
+              className="h-8 w-auto md:h-9"
+            />
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-blue-600 transition-colors">
+          <div className="hidden md:flex items-center space-x-6">
+            <Link href="/" className="text-gray-700 hover:text-blue-600 transition-colors whitespace-nowrap">
               Home
             </Link>
-            <Link href="/#services" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <Link href="/#services" className="text-gray-700 hover:text-blue-600 transition-colors whitespace-nowrap">
               Services
             </Link>
-            <Link href="/about" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <Link href="/about" className="text-gray-700 hover:text-blue-600 transition-colors whitespace-nowrap">
               About
             </Link>
-            <Link href="/terms" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <Link href="/terms" className="text-gray-700 hover:text-blue-600 transition-colors whitespace-nowrap">
               Terms & Conditions
             </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <Link href="/contact" className="text-gray-700 hover:text-blue-600 transition-colors whitespace-nowrap">
               Contact
             </Link>
           </div>
 
           {/* CTA Buttons */}
-          <div className="hidden md:flex items-center space-x-3">
+          <div className="hidden md:flex items-center space-x-3 shrink-0">
             <Button
               variant="outline"
               className="border-purple-600 text-purple-600 hover:bg-purple-50 bg-transparent"
@@ -84,7 +93,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="md:hidden shrink-0">
             <Button variant="ghost" size="sm" onClick={() => setIsOpen(!isOpen)} className="p-2">
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>

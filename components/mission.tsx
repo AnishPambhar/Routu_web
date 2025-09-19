@@ -43,15 +43,15 @@ export default function Mission() {
             <Card className="bg-gradient-to-br from-blue-50 to-green-50 border-0 shadow-xl">
               <CardContent className="p-8">
                 <div className="text-center">
-                  <div className="text-4xl font-bold text-blue-600 mb-2">1000+</div>
+                  <div className="text-4xl font-bold text-blue-600 mb-2">150+</div>
                   <div className="text-gray-600 mb-6">Lives Impacted</div>
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div>
-                      <div className="text-2xl font-bold text-green-600">500+</div>
+                      <div className="text-2xl font-bold text-green-600">80+</div>
                       <div className="text-sm text-gray-600">Active Riders</div>
                     </div>
                     <div>
-                      <div className="text-2xl font-bold text-purple-600">50+</div>
+                      <div className="text-2xl font-bold text-purple-600">6+</div>
                       <div className="text-sm text-gray-600">Partner Vendors</div>
                     </div>
                   </div>

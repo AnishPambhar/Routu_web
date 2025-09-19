@@ -34,8 +34,8 @@ export default function TermsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
 
-      <div className="flex">
-        <aside className="w-60 bg-white border-r border-gray-200 h-screen sticky top-16 overflow-y-auto">
+      <div className="flex flex-col md:flex-row">
+        <aside className="hidden md:block w-60 bg-white border-r border-gray-200 h-[calc(100vh-4rem)] sticky top-16 overflow-y-auto">
           <div className="p-6">
             <h3 className="text-xs font-semibold text-purple-600 uppercase tracking-wider mb-4">Sections</h3>
             <ul className="space-y-1 mb-8">
@@ -84,13 +84,40 @@ export default function TermsPage() {
           </div>
         </aside>
 
-        <main className="flex-1 max-w-5xl mx-auto p-8">
-          <div className="bg-white rounded-lg shadow-sm p-10 leading-relaxed">
-            <h1 className="text-3xl font-bold text-purple-600 mb-2">Terms & Conditions</h1>
-            <p className="text-sm text-gray-600 mb-10">Last updated: 15 August 2025</p>
+        <main className="flex-1 max-w-5xl mx-auto p-4 sm:p-6 md:p-8">
+          {/* Mobile section tabs */}
+          <div className="md:hidden sticky top-16 z-40 bg-gray-50/95 backdrop-blur supports-[backdrop-filter]:bg-gray-50/75 border-b border-gray-200">
+            <div className="flex gap-2 overflow-x-auto no-scrollbar px-2 py-3">
+              {[
+                { id: "intro", label: "Intro" },
+                { id: "legal", label: "Legal" },
+                { id: "scope", label: "Scope" },
+                { id: "sectionA", label: "Vendor" },
+                { id: "sectionB", label: "Customer" },
+                { id: "sectionC", label: "Send Parcel" },
+                { id: "sectionD", label: "Traveler" },
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-xs ${
+                    activeSection === item.id
+                      ? "border-purple-600 text-purple-700 bg-purple-50"
+                      : "border-gray-200 text-gray-700"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 md:p-10 leading-relaxed">
+            <h1 className="text-2xl sm:text-3xl font-bold text-purple-600 mb-2">Terms & Conditions</h1>
+            <p className="text-xs sm:text-sm text-gray-600 mb-6 sm:mb-10">Last updated: 15 August 2025</p>
 
             <section id="intro" className="mb-10">
-              <h2 className="text-2xl font-semibold text-purple-600 border-b-2 border-purple-100 pb-3 mb-6">
+              <h2 className="text-xl sm:text-2xl font-semibold text-purple-600 border-b-2 border-purple-100 pb-3 mb-6">
                 Introduction
               </h2>
               <p className="text-gray-700 leading-relaxed">
@@ -101,7 +128,7 @@ export default function TermsPage() {
             </section>
 
             <section id="legal" className="mb-10">
-              <h2 className="text-2xl font-semibold text-purple-600 border-b-2 border-purple-100 pb-3 mb-6">
+              <h2 className="text-xl sm:text-2xl font-semibold text-purple-600 border-b-2 border-purple-100 pb-3 mb-6">
                 Legal Basis
               </h2>
               <ul className="list-disc list-inside space-y-2 text-gray-700">
@@ -116,7 +143,7 @@ export default function TermsPage() {
             </section>
 
             <section id="scope" className="mb-10">
-              <h2 className="text-2xl font-semibold text-purple-600 border-b-2 border-purple-100 pb-3 mb-6">
+              <h2 className="text-xl sm:text-2xl font-semibold text-purple-600 border-b-2 border-purple-100 pb-3 mb-6">
                 Scope of Application
               </h2>
               <p className="text-gray-700 mb-4">These Terms and Conditions are divided into the following sections:</p>
@@ -129,7 +156,7 @@ export default function TermsPage() {
             </section>
 
             <section id="sectionA" className="mb-12">
-              <h2 className="text-2xl font-semibold text-purple-600 border-b-2 border-purple-100 pb-3 mb-8">
+              <h2 className="text-xl sm:text-2xl font-semibold text-purple-600 border-b-2 border-purple-100 pb-3 mb-8">
                 SECTION A – Vendor Terms & Conditions
               </h2>
 
@@ -262,7 +289,7 @@ export default function TermsPage() {
             </section>
 
             <section id="sectionB" className="mb-12">
-              <h2 className="text-2xl font-semibold text-purple-600 border-b-2 border-purple-100 pb-3 mb-8">SECTION B – Customer Terms & Conditions</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-purple-600 border-b-2 border-purple-100 pb-3 mb-8">SECTION B – Customer Terms & Conditions</h2>
               <p className="text-gray-700 mb-8">These terms apply to all individuals or entities who purchase products, place orders, or use any delivery-related services via Routo. By placing an order, you agree to comply with these conditions along with applicable laws, including but not limited to:</p>
               <ul className="list-disc list-inside space-y-1 text-gray-700 mb-8">
                 <li>Consumer Protection Act, 2019</li>
@@ -390,7 +417,7 @@ export default function TermsPage() {
             </section>
 
             <section id="sectionC" className="mb-12">
-              <h2 className="text-2xl font-semibold text-purple-600 border-b-2 border-purple-100 pb-3 mb-8">SECTION C – Send Parcel Service – Customer Terms & Conditions</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-purple-600 border-b-2 border-purple-100 pb-3 mb-8">SECTION C – Send Parcel Service – Customer Terms & Conditions</h2>
               <p className="text-gray-700 mb-4">These terms govern the use of Routo’s Send Parcel service by customers sending packages via travelers registered on the Routo platform.</p>
               <p className="text-gray-700 mb-6">By booking a parcel delivery, you agree to comply with these terms along with applicable Indian laws, including but not limited to:</p>
               <ul className="list-disc list-inside space-y-1 text-gray-700 mb-8">
@@ -498,7 +525,7 @@ export default function TermsPage() {
             </section>
 
             <section id="sectionD" className="mb-12">
-              <h2 className="text-2xl font-semibold text-purple-600 border-b-2 border-purple-100 pb-3 mb-8">
+              <h2 className="text-xl sm:text-2xl font-semibold text-purple-600 border-b-2 border-purple-100 pb-3 mb-8">
                 SECTION D – Traveler Terms & Conditions
               </h2>
 
