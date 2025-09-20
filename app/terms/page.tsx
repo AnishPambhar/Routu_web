@@ -33,9 +33,9 @@ export default function TermsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-
-      <div className="flex flex-col md:flex-row">
-        <aside className="hidden md:block w-60 bg-white border-r border-gray-200 h-[calc(100vh-4rem)] sticky top-16 overflow-y-auto">
+      <div className="flex flex-col lg:flex-row">
+        {/* Desktop Sidebar */}
+        <aside className="hidden lg:block w-64 bg-white border-r border-gray-200 h-[calc(100vh-4rem)] sticky top-16 overflow-y-auto">
           <div className="p-6">
             <h3 className="text-xs font-semibold text-purple-600 uppercase tracking-wider mb-4">Sections</h3>
             <ul className="space-y-1 mb-8">
@@ -84,76 +84,174 @@ export default function TermsPage() {
           </div>
         </aside>
 
-        <main className="flex-1 max-w-5xl mx-auto p-4 sm:p-6 md:p-8">
-          {/* Mobile section tabs */}
-          <div className="md:hidden sticky top-16 z-40 bg-gray-50/95 backdrop-blur supports-[backdrop-filter]:bg-gray-50/75 border-b border-gray-200">
-            <div className="flex gap-2 overflow-x-auto no-scrollbar px-2 py-3">
-              {[
-                { id: "intro", label: "Intro" },
-                { id: "legal", label: "Legal" },
-                { id: "scope", label: "Scope" },
-                { id: "sectionA", label: "Vendor" },
-                { id: "sectionB", label: "Customer" },
-                { id: "sectionC", label: "Send Parcel" },
-                { id: "sectionD", label: "Traveler" },
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-xs ${
-                    activeSection === item.id
-                      ? "border-purple-600 text-purple-700 bg-purple-50"
-                      : "border-gray-200 text-gray-700"
-                  }`}
-                >
-                  {item.label}
-                </button>
-              ))}
+        {/* Main Content */}
+        <main className="flex-1 max-w-4xl mx-auto w-full">
+          {/* Mobile Navigation */}
+          <div className="lg:hidden sticky top-16 z-40 bg-white border-b border-gray-200 shadow-sm">
+            <div className="px-4 py-4">
+              <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+                {[
+                  { id: "intro", label: "Intro", icon: "📋" },
+                  { id: "legal", label: "Legal", icon: "⚖️" },
+                  { id: "scope", label: "Scope", icon: "🎯" },
+                  { id: "sectionA", label: "Vendor", icon: "🏪" },
+                  { id: "sectionB", label: "Customer", icon: "👤" },
+                  { id: "sectionC", label: "Parcel", icon: "📦" },
+                  { id: "sectionD", label: "Traveler", icon: "🚗" },
+                ].map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`flex-shrink-0 flex flex-col items-center justify-center rounded-2xl px-4 py-3 min-w-[80px] transition-all duration-200 ${
+                      activeSection === item.id
+                        ? "bg-purple-500 text-white shadow-lg transform scale-105"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:scale-102"
+                    }`}
+                  >
+                    <span className="text-lg mb-1">{item.icon}</span>
+                    <span className="text-xs font-medium text-center leading-tight">{item.label}</span>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 md:p-10 leading-relaxed">
-            <h1 className="text-2xl sm:text-3xl font-bold text-purple-600 mb-2">Terms & Conditions</h1>
-            <p className="text-xs sm:text-sm text-gray-600 mb-6 sm:mb-10">Last updated: 15 August 2025</p>
+          {/* Content Container */}
+          <div className="bg-white min-h-screen">
+            <div className="px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
+              {/* Header */}
+              <div className="mb-8 sm:mb-12">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-purple-600 mb-3">Terms & Conditions</h1>
+                <p className="text-sm sm:text-base text-gray-500">Last updated: 15 August 2025</p>
+              </div>
 
-            <section id="intro" className="mb-10">
-              <h2 className="text-xl sm:text-2xl font-semibold text-purple-600 border-b-2 border-purple-100 pb-3 mb-6">
-                Introduction
-              </h2>
-              <p className="text-gray-700 leading-relaxed">
-                These Terms and Conditions ("Agreement") govern the relationship between Routo and its users. By
-                accessing or using our platform, you agree to be bound by these terms and all applicable laws and
-                regulations.
-              </p>
-            </section>
+              {/* Introduction Section */}
+              <section id="intro" className="mb-10 sm:mb-12">
+                <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-6 sm:p-8 mb-6">
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-purple-600 mb-4">
+                    Introduction
+                  </h2>
+                  <p className="text-gray-700 leading-relaxed text-base sm:text-lg">
+                    These Terms and Conditions ("Agreement") govern the relationship between Routo and its users. By
+                    accessing or using our platform, you agree to be bound by these terms and all applicable laws and
+                    regulations.
+                  </p>
+                </div>
+              </section>
 
-            <section id="legal" className="mb-10">
-              <h2 className="text-xl sm:text-2xl font-semibold text-purple-600 border-b-2 border-purple-100 pb-3 mb-6">
-                Legal Basis
-              </h2>
-              <ul className="list-disc list-inside space-y-2 text-gray-700">
-                <li>Indian Contract Act, 1872 – Governing contractual obligations.</li>
-                <li>Information Technology Act, 2000 – Governing electronic records and online transactions.</li>
-                <li>Consumer Protection Act, 2019 – Protecting consumer rights and interests.</li>
-                <li>Motor Vehicles Act, 1988 – Governing transport and delivery operations.</li>
-                <li>Narcotic Drugs and Psychotropic Substances Act, 1985</li>
-                <li>Arms Act, 1959</li>
-                <li>Postal Act, 1898 (where applicable)</li>
-              </ul>
-            </section>
+              {/* Legal Basis Section */}
+              <section id="legal" className="mb-10 sm:mb-12">
+                <div className="bg-white border border-gray-200 rounded-xl p-6 sm:p-8 shadow-sm">
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-purple-600 mb-6">
+                    Legal Basis
+                  </h2>
+                  <div className="space-y-4">
+                    <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
+                      <div className="w-3 h-3 bg-purple-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                      <div className="flex-1">
+                        <p className="text-gray-800 font-medium text-base sm:text-lg">Indian Contract Act, 1872</p>
+                        <p className="text-gray-600 text-sm sm:text-base mt-1">Governing contractual obligations.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
+                      <div className="w-3 h-3 bg-purple-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                      <div className="flex-1">
+                        <p className="text-gray-800 font-medium text-base sm:text-lg">Information Technology Act, 2000</p>
+                        <p className="text-gray-600 text-sm sm:text-base mt-1">Governing electronic records and online transactions.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
+                      <div className="w-3 h-3 bg-purple-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                      <div className="flex-1">
+                        <p className="text-gray-800 font-medium text-base sm:text-lg">Consumer Protection Act, 2019</p>
+                        <p className="text-gray-600 text-sm sm:text-base mt-1">Protecting consumer rights and interests.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
+                      <div className="w-3 h-3 bg-purple-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                      <div className="flex-1">
+                        <p className="text-gray-800 font-medium text-base sm:text-lg">Motor Vehicles Act, 1988</p>
+                        <p className="text-gray-600 text-sm sm:text-base mt-1">Governing transport and delivery operations.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
+                      <div className="w-3 h-3 bg-purple-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                      <div className="flex-1">
+                        <p className="text-gray-800 font-medium text-base sm:text-lg">Narcotic Drugs and Psychotropic Substances Act, 1985</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
+                      <div className="w-3 h-3 bg-purple-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                      <div className="flex-1">
+                        <p className="text-gray-800 font-medium text-base sm:text-lg">Arms Act, 1959</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
+                      <div className="w-3 h-3 bg-purple-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                      <div className="flex-1">
+                        <p className="text-gray-800 font-medium text-base sm:text-lg">Postal Act, 1898</p>
+                        <p className="text-gray-600 text-sm sm:text-base mt-1">(where applicable)</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
 
-            <section id="scope" className="mb-10">
-              <h2 className="text-xl sm:text-2xl font-semibold text-purple-600 border-b-2 border-purple-100 pb-3 mb-6">
-                Scope of Application
-              </h2>
-              <p className="text-gray-700 mb-4">These Terms and Conditions are divided into the following sections:</p>
-              <ul className="list-disc list-inside space-y-2 text-gray-700">
-                <li>Section A – Vendor Terms & Conditions</li>
-                <li>Section B – Customer Terms & Conditions</li>
-                <li>Section C – Send Parcel Service – Customer Terms & Conditions</li>
-                <li>Section D – Traveler Terms & Conditions</li>
-              </ul>
-            </section>
+              {/* Scope Section */}
+              <section id="scope" className="mb-10 sm:mb-12">
+                <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-6 sm:p-8">
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-purple-600 mb-4">
+                    Scope of Application
+                  </h2>
+                  <p className="text-gray-700 mb-6 text-base sm:text-lg">These Terms and Conditions are divided into the following sections:</p>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                          <span className="text-purple-600 font-bold text-sm">A</span>
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-gray-800 text-base">Vendor Terms</h3>
+                          <p className="text-gray-600 text-sm">Terms & Conditions</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                          <span className="text-blue-600 font-bold text-sm">B</span>
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-gray-800 text-base">Customer Terms</h3>
+                          <p className="text-gray-600 text-sm">Terms & Conditions</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                          <span className="text-green-600 font-bold text-sm">C</span>
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-gray-800 text-base">Send Parcel</h3>
+                          <p className="text-gray-600 text-sm">Customer Terms</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
+                          <span className="text-orange-600 font-bold text-sm">D</span>
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-gray-800 text-base">Traveler Terms</h3>
+                          <p className="text-gray-600 text-sm">Terms & Conditions</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
 
             <section id="sectionA" className="mb-12">
               <h2 className="text-xl sm:text-2xl font-semibold text-purple-600 border-b-2 border-purple-100 pb-3 mb-8">
@@ -742,20 +840,23 @@ export default function TermsPage() {
               </div>
             </section>
 
-            <div className="border-t border-gray-200 pt-8 mt-12">
-              <p className="text-center text-gray-600 leading-relaxed">
-                By continuing to use Routo, you acknowledge that you have read, understood, and agreed to these Terms &
-                Conditions.
-              </p>
+              {/* Footer */}
+              <div className="border-t border-gray-200 pt-8 mt-12">
+                <div className="bg-gray-50 rounded-xl p-6 sm:p-8 text-center">
+                  <p className="text-gray-600 leading-relaxed text-base sm:text-lg mb-4">
+                    By continuing to use Routo, you acknowledge that you have read, understood, and agreed to these Terms &
+                    Conditions.
+                  </p>
+                  <div className="text-sm text-gray-500">
+                    © 2025 Routo Technologies Pvt. Ltd. |{" "}
+                    <Link href="/privacy" className="text-purple-600 hover:underline font-medium">
+                      Privacy Policy
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-
-          <footer className="mt-8 text-center text-sm text-gray-500 pb-8">
-            © 2025 Routo Technologies Pvt. Ltd. |{" "}
-            <Link href="/privacy" className="text-purple-600 hover:underline">
-              Privacy Policy
-            </Link>
-          </footer>
         </main>
       </div>
     </div>
